@@ -4,7 +4,7 @@ This project is an AI-powered fashion marketplace designed to help users find th
 
 Features
 
-## >AI Outfit Recommendation: Users get outfit suggestions based on trends, seasons, and colors.
+## >AI Outfit Recommendation: Users get outfit suggestions based on trends, seasons, and colors.(future enhancement)
 
 ## >E-commerce Functionality: Browse products, add to cart, and view total price.
 ## >Minimalist UI: A clean and functional design for easy navigation.
