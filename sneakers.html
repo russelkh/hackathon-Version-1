@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sneakers</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        header {
+            background: #222;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        .container {
+            margin: 140px auto 20px;
+            padding: 20px;
+            width: 80%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .product {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .product img {
+            max-width: 100%;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .product h3 {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Sneakers</h1>
+    </header>
+    
+    <div class="container">
+        <div class="product">
+            <a href="item.html?product=Running Sneakers">
+                <img src="images/shoe1.jpeg" alt="Running Sneakers">
+            </a> 
+            <h3>Running Sneakers</h3>
+            <p>Rs 4500</p>
+        </div>
+        
+        <div class="product">
+            <a href="item.html?product=Leather Dress Shoes">
+                <img src="images/shoe2.jpeg" alt="Leather Dress Shoes">
+            </a>
+            <h3>Leather Dress Shoes</h3>
+            <p>Rs 6200</p>
+        </div>
+
+        <div class="product">
+            <a href="item.html?product=Casual Loafers">
+                <img src="images/shoe3.jpeg" alt="Casual Loafers">
+            </a>
+            <h3>Casual Loafers</h3>
+            <p>Rs 3900</p>
+        </div>
+        
+        <div class="product">
+            <a href="item.html?product=High-Top Sneakers">
+                <img src="images/shoe4.jpeg" alt="High-Top Sneakers">
+            </a>
+            <h3>High-Top Sneakers</h3>
+            <p>Rs 5200</p>
+        </div>
+        
+        <div class="product">
+            <a href="item.html?product=Chelsea Boots">
+                <img src="images/shoe5.jpeg" alt="Chelsea Boots">
+            </a>
+            <h3>Chelsea Boots</h3>
+            <p>Rs 7000</p>
+        </div>
+        
+        <div class="product">
+            <a href="item.html?product=Hiking Boots">
+                <img src="images/shoe6.jpeg" alt="Hiking Boots">
+            </a>
+            <h3>Hiking Boots</h3>
+            <p>Rs 6800</p>
+        </div>
+        
+        <div class="product">
+            <a href="item.html?product=Slip-On Canvas Shoes">
+                <img src="images/shoe7.jpeg" alt="Slip-On Canvas Shoes">
+            </a>
+            <h3>Slip-On Canvas Shoes</h3>
+            <p>Rs 3200</p>
+        </div>
+        
+        <div class="product">
+            <a href="item.html?product=Athletic Training Shoes">
+                <img src="images/shoe8.jpeg" alt="Athletic Training Shoes">
+            </a>
+            <h3>Athletic Training Shoes</h3>
+            <p>Rs 5800</p>
+        </div>
+        
+        <div class="product">
+            <a href="item.html?product=Flip-Flops">
+                <img src="images/shoe9.jpeg" alt="Flip-Flops">
+            </a>
+            <h3>Flip-Flops</h3>
+            <p>Rs 1500</p>
+        </div>
+        
+        <div class="product">
+            <a href="item.html?product=Espadrilles">
+                <img src="images/shoe10.jpeg" alt="Espadrilles">
+            </a>
+            <h3>Espadrilles</h3>
+            <p>Rs 3400</p>
+        </div>
+    </div>
+</body>
+</html>

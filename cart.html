@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="styles.css"> 
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .item-details {
+            flex-grow: 1;
+            margin-left: 15px;
+        }
+        .item-name {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .item-price {
+            font-size: 14px;
+            color: #555;
+        }
+        .quantity {
+            width: 50px;
+            padding: 5px;
+        }
+        .remove-btn {
+            background: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .total {
+            text-align: right;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        .checkout-btn {
+            display: block;
+            width: 100%;
+            background: green;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Shopping Cart</h2>
+    <div id="cartItems"></div>
+    <p class="total">Total: <span id="totalPrice">Rs 0</span></p>
+    <button class="checkout-btn">Checkout</button>
+</div>
+
+<script>
+    function loadCart() {
+        let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+        let cartContainer = document.getElementById("cartItems");
+        let totalPriceElement = document.getElementById("totalPrice");
+        cartContainer.innerHTML = "";
+        let total = 0;
+
+        if (cartItems.length === 0) {
+            cartContainer.innerHTML = "<p>Your cart is empty.</p>";
+            return;
+        }
+
+        cartItems.forEach((item, index) => {
+            let itemElement = document.createElement("div");
+            itemElement.classList.add("cart-item");
+            itemElement.innerHTML = `
+                <img src="${item.image}" alt="${item.name}">
+                <div class="item-details">
+                    <p class="item-name">${item.name}</p>
+                    <p class="item-price">Rs ${item.price}</p>
+                </div>
+                <input type="number" class="quantity" min="1" value="${item.quantity}" data-index="${index}">
+                <button class="remove-btn" data-index="${index}">Remove</button>
+            `;
+            cartContainer.appendChild(itemElement);
+            total += item.price * item.quantity;
+        });
+
+        totalPriceElement.textContent = "Rs " + total;
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        loadCart();
+
+        document.getElementById("cartItems").addEventListener("change", function (event) {
+            if (event.target.classList.contains("quantity")) {
+                let index = event.target.getAttribute("data-index");
+                let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+                cartItems[index].quantity = parseInt(event.target.value);
+                localStorage.setItem("cart", JSON.stringify(cartItems));
+                loadCart();
+            }
+        });
+
+        document.getElementById("cartItems").addEventListener("click", function (event) {
+            if (event.target.classList.contains("remove-btn")) {
+                let index = event.target.getAttribute("data-index");
+                let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+                cartItems.splice(index, 1);
+                localStorage.setItem("cart", JSON.stringify(cartItems));
+                loadCart();
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

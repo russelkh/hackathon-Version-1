@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweater Collection</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        header {
+            background: #222;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        .container {
+            margin: 150px auto 20px;
+            padding: 20px;
+            width: 80%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .product {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .product img {
+            max-width: 100%;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .product h3 {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Sweater Collection</h1>
+    </header>
+    <div class="container">
+        <script>
+            const sweaters = {
+                "Classic Knit Sweater": { image: "images/sweater 1.jpeg", price: 3200 },
+                "Turtleneck Sweater": { image: "images/sweater 2.jpeg", price: 3500 },
+                "Cable Knit Sweater": { image: "images/sweater 3.jpeg", price: 4000 },
+                "Oversized Sweater": { image: "images/sweater 4.jpeg", price: 3700 },
+                "Hooded Sweater": { image: "images/sweater 5.jpeg", price: 3300 },
+                "Cashmere Sweater": { image: "images/sweater 6.jpeg", price: 8000 },
+                "Striped Sweater": { image: "images/sweater 7.jpeg", price: 3600 },
+                "Button-Up Cardigan": { image: "images/sweater 8.jpeg", price: 3900 },
+                "Wool Blend Sweater": { image: "images/sweater 9.jpeg", price: 4500 },
+                "V-Neck Sweater": { image: "images/sweater 10.jpeg", price: 3400 }
+            };
+            
+            const container = document.querySelector('.container');
+            
+            for (const [name, details] of Object.entries(sweaters)) {
+                const productDiv = document.createElement('div');
+                productDiv.classList.add('product');
+                productDiv.innerHTML = `
+                    <a href="item.html?product=${encodeURIComponent(name)}">
+                        <img src="${details.image}" alt="${name}">
+                    </a>
+                    <h3>${name}</h3>
+                    <p>Rs ${details.price}</p>
+                `;
+                container.appendChild(productDiv);
+            }
+        </script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        header {
+            background: #222;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        .container {
+            margin: 150px auto 20px;
+            padding: 20px;
+            width: 60%;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .product-image img {
+            max-width: 300px;
+            border-radius: 10px;
+        }
+        .product-details {
+            text-align: left;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        .buttons button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+        }
+        #cartMessage {
+            color: green;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Product Details</h1>
+    </header>
+    
+    <div class="container">
+        <div class="product-image">
+            <img id="productImage" src="" alt="Product Image">
+        </div>
+        <div class="product-details">
+            <h2 id="productName"></h2>
+            <p id="productDescription"></p>
+            <p><strong id="productPrice"></strong></p>
+            <label for="quantity">Quantity:</label>
+            <select id="quantity">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <p>Total Price: <strong id="totalPrice"></strong></p>
+            <div class="buttons">
+                <button id="addToCart">Add to Cart</button>
+                <button onclick="window.location.href='cart.html'">View Cart</button>
+                <button onclick="window.history.back()">Go Back</button>
+            </div>
+            <p id="cartMessage"></p>
+        </div>
+    </div>
+    
+    <script>
+          document.addEventListener("DOMContentLoaded", function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const product = decodeURIComponent(urlParams.get("product") || "").trim();
+
+            const productData = {
+                "Casual Cotton T-Shirt": { image: "images/tshirt1.jpeg", description: "Comfortable and stylish cotton t-shirt.", price: 1650 },
+                "Classic Black T-Shirt": { image: "images/tshirt2.jpeg", description: "Sleek black t-shirt for every occasion.", price: 1800 },
+                "Graphic Printed T-Shirt": { image: "images/tshirt3.jpeg", description: "Trendy graphic printed t-shirt.", price: 2000 },
+                "Premium Cotton T-Shirt": { image: "images/tshirt4.jpeg", description: "Made with premium cotton for comfort.", price: 2400 },
+                "Stylish V-Neck T-Shirt": { image: "images/tshirt5.jpeg", description: "Fashionable V-neck t-shirt.", price: 2200 },
+                "Oversized T-Shirt": { image: "images/tshirt6.jpeg", description: "Relaxed fit oversized t-shirt.", price: 1900 },
+                "Striped T-Shirt": { image: "images/tshirt7.jpeg", description: "Classic striped t-shirt.", price: 2100 },
+                "Pocket T-Shirt": { image: "images/tshirt8.jpeg", description: "Casual pocket design t-shirt.", price: 1700 },
+                "Long Sleeve T-Shirt": { image: "images/tshirt9.jpeg", description: "Comfortable long sleeve t-shirt.", price: 2300 },
+                "Henley T-Shirt": { image: "images/tee or.jpeg", description: "Stylish button-up Henley tee.", price: 2500 },
+              
+                "Classic Denim Jacket": { image: "images/jacket1.jpeg", description: "Timeless denim jacket for a stylish look.", price: 3500 },
+                "Leather Biker Jacket": { image: "images/jacket2.jpeg", description: "Edgy and durable leather biker jacket.", price: 7500 },
+                "Puffer Winter Jacket": { image: "images/jacket3.jpeg", description: "Warm and comfortable puffer jacket.", price: 6000 },
+                "Hooded Bomber Jacket": { image: "images/jacket4.jpeg", description: "Trendy bomber jacket with a hood.", price: 4800 },
+                "Waterproof Rain Jacket": { image: "images/jacket5.jpeg", description: "Lightweight waterproof rain jacket.", price: 3200 },
+                "Tailored Blazer Jacket": { image: "images/jacket6.jpeg", description: "Elegant tailored blazer for formal wear.", price: 5500 },
+                "Military Cargo Jacket": { image: "images/jacket7.jpeg", description: "Rugged cargo jacket with multiple pockets.", price: 5200 },
+                "Windbreaker Sports Jacket": { image: "images/jacket8.jpeg", description: "Breathable and lightweight windbreaker.", price: 4100 },
+                "Sherpa Lined Jacket": { image: "images/jacket9.jpeg", description: "Soft sherpa lining for extra warmth.", price: 5800 },
+                "Corduroy Trucker Jacket": { image: "images/jacket10.jpeg", description: "Retro corduroy trucker-style jacket.", price: 3900 },
+               
+                "Slim Fit Jeans": { image: "images/pants1.jpeg", description: "Classic slim fit jeans for everyday wear.", price: 2800 },
+                "Chino Trousers": { image: "images/pants2.jpeg", description: "Comfortable and stylish chino trousers.", price: 3200 },
+                "Cargo Pants": { image: "images/pants3.jpeg", description: "Durable cargo pants with multiple pockets.", "price": 3500 },
+                "Jogger Sweatpants": { image: "images/pants4.jpeg", description: "Casual jogger sweatpants for a relaxed fit.", price: 2500 },
+                "Formal Dress Pants": { image: "images/pants5.jpeg", description: "Elegant dress pants for formal occasions.", price: 4000 },
+                "Ripped Denim Jeans": { image: "images/pants6.jpeg", description: "Trendy ripped jeans for a modern look.", price: 3000 },
+                "Wide Leg Trousers": { image: "images/pants7.jpeg", description: "Stylish wide-leg trousers for a chic outfit.", price: 3700 },
+                "Corduroy Pants": { image: "images/pants8.jpeg", description: "Retro-inspired corduroy pants for comfort.", price: 3300 },
+                "High-Waisted Pants": { image: "images/pants9.jpeg", description: "Flattering high-waisted pants for any occasion.", price: 3600 },
+                "Track Pants": { image: "images/pants10.jpeg", description: "Lightweight and breathable track pants.", price: 2700 },
+                
+   
+                "Running Sneakers": { image: "images/shoe1.jpeg", description: "Lightweight running sneakers for daily wear.", price: 4500 },
+                "Leather Dress Shoes": { image: "images/shoe2.jpeg", description: "Classic leather dress shoes for formal occasions.", price: 6200 },
+                "Casual Loafers": { image: "images/shoe3.jpeg", description: "Comfortable loafers perfect for casual outings.", price: 3900 },
+                "High-Top Sneakers": { image: "images/shoe4.jpeg", description: "Trendy high-top sneakers for a stylish look.", price: 5200 },
+                "Chelsea Boots": { image: "images/shoe5.jpeg", description: "Elegant Chelsea boots for a refined appearance.",price: 7000 },
+                "Hiking Boots": { image: "images/shoe6.jpeg", description: "Durable hiking boots for outdoor adventures.", price: 6800 },
+                "Slip-On Canvas Shoes": { image: "images/shoe7.jpeg", description: "Easy-to-wear slip-on canvas shoes.", price: 3200 },
+                "Athletic Training Shoes": { "image": "images/shoe8.jpeg", "description": "High-performance training shoes for workouts.", "price": 5800 },
+                "Flip-Flops": { image: "images/shoe9.jpeg", description: "Casual flip-flops for summer comfort.", price: 1500 },
+                "Espadrilles": { image: "images/shoe10.jpeg", description: "Stylish espadrilles for a relaxed summer vibe.", price: 3400 },
+                
+                "Classic Knit Sweater": { image: "images/sweater 1.jpeg", description: "Soft and cozy knit sweater for a timeless look.", price: 3200 },
+                "Turtleneck Sweater": { image: "images/sweater 2.jpeg", description: "Elegant turtleneck sweater for warmth and style.", price: 3500 },
+                "Cable Knit Sweater": { image: "images/sweater 3.jpeg", description: "Chunky cable knit sweater for a cozy feel.", price: 4000 },
+                "Oversized Sweater": { image: "images/sweater 4.jpeg", description: "Relaxed fit oversized sweater for comfort.", price: 3700 },
+                "Hooded Sweater": { image: "images/sweater 5.jpeg", description: "Casual hooded sweater for a laid-back look.", price: 3300 },
+                "Cashmere Sweater": { image: "images/sweater 6.jpeg", description: "Luxurious cashmere sweater for premium comfort.", price: 8000 },
+                "Striped Sweater": { image: "images/sweater 7.jpeg", description: "Trendy striped sweater for a stylish appearance.", price: 3600 },
+               "Button-Up Cardigan": { image: "images/sweater 8.jpeg", description: "Classic button-up cardigan for layering.", price: 3900 },
+               "Wool Blend Sweater": { image: "images/sweater 9.jpeg", description: "Warm wool blend sweater for cold weather.", price: 4500 },
+               "V-Neck Sweater": { image: "images/sweater 10.jpeg", description: "Versatile V-neck sweater for any occasion.", price: 3400 }
+
+}
+
+
+            
+if (productData[product]) {
+            document.getElementById("productImage").src = productData[product].image;
+            document.getElementById("productName").textContent = product;
+            document.getElementById("productDescription").textContent = productData[product].description;
+            document.getElementById("productPrice").textContent = "Rs " + productData[product].price;
+
+            const quantitySelect = document.getElementById("quantity");
+            const totalPriceElement = document.getElementById("totalPrice");
+
+            function updateTotalPrice() {
+                const quantity = parseInt(quantitySelect.value);
+                const price = productData[product].price;
+                totalPriceElement.textContent = "Rs " + (quantity * price);
+            }
+
+            quantitySelect.addEventListener("change", updateTotalPrice);
+            updateTotalPrice();
+        } else {
+            document.querySelector(".container").innerHTML = "<p>Product not found.</p>";
+            return;
+        }
+
+        // Add to Cart Functionality with Message Display
+        const addToCartButton = document.getElementById("addToCart");
+        const cartMessage = document.createElement("p");
+        cartMessage.id = "cartMessage";
+        cartMessage.style.color = "green";
+        cartMessage.style.fontWeight = "bold";
+        cartMessage.style.marginTop = "10px";
+        addToCartButton.parentNode.appendChild(cartMessage); // Add below button
+
+        addToCartButton.addEventListener("click", function () {
+            let productName = document.getElementById("productName").innerText;
+            let productPrice = parseInt(document.getElementById("productPrice").innerText.replace("Rs ", ""));
+            let productImage = document.getElementById("productImage").src;
+            let quantity = parseInt(document.getElementById("quantity").value);
+
+            let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+
+            let existingItem = cartItems.find(item => item.name === productName);
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                cartItems.push({
+                    name: productName,
+                    price: productPrice,
+                    image: productImage,
+                    quantity: quantity
+                });
+            }
+
+            localStorage.setItem("cart", JSON.stringify(cartItems));
+
+            // Update message instead of alert
+            cartMessage.textContent = "Added to Cart!";
+        });
+    });
+    </script>
+</body>
+</html>

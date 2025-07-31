@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Manipur Marketplace</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background: url("images/background for site.JPG") no-repeat;
+            background-size: contain;
+            background-position: center;
+        }
+        header {
+            background: #222;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .seller-button {
+            margin-right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .seller-button:hover {
+            background: #218838;
+        }
+        .cart-button {
+            background: grey;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+        }
+        .cart-button:hover {
+            background: darkgrey;
+        }
+        .cart-button::before {
+            content: "🛒";
+            font-size: 18px;
+        }
+        .container {
+            margin-top: 200px;
+            padding: 20px;
+        }
+        .search-bar {
+            margin: 20px auto;
+            max-width: 400px;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .recommend-button {
+            background: #007bff;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        .floating-recommend {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #007bff;
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .category-list {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding: 20px;
+            scroll-snap-type: x mandatory;
+            white-space: nowrap;
+        }
+        .category {
+            flex: 0 0 auto;
+            width: 200px;
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 5px;
+            background: #f9f9f9;
+            scroll-snap-align: start;
+        }
+        .category img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+       /* Floating AI Chat Button */
+
+       #ai-chat-button {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          background-color: #007bff;
+          color: white;
+          padding: 15px;        
+          border-radius: 50%;
+          font-size: 20px;       
+          cursor: pointer;        
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);   
+        }
+    /* Chat Popup */
+
+    #chat-popup {
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        width: 300px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        display: none;
+        flex-direction: column;
+    }
+    #chat-header {
+        background: #007bff;
+        color: white;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+    #chat-body {
+        height: 200px;
+        overflow-y: auto;
+        padding: 10px;
+    }
+    #chat-input-container {
+        display: flex;
+        border-top: 1px solid #ccc;
+    }
+    #chat-input {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        outline: none;
+    }
+    #chat-input-container button {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>AI-Powered Manipur Marketplace</h1>
+        <div>
+            <a href="cart.html" class="cart-button">Cart</a>
+            <a href="seller.html" class="seller-button">Become a Seller</a>
+        </div>
+    </header>
+    <div class="container">
+        <h2>Shop by Category</h2>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search for items..." onkeyup="searchItems()">
+        </div>
+        <a href="#" id="recommend-btn" class="recommend-button"onclick="getRecommendation()">Recommend Me</a>        
+        <div id="recommendation-result"></div>
+        <section class="category-list" id="categoryList">
+            <div class="category" data-name="T-Shirts">
+                <a href="tshirts.html">
+                    <img src="images/tee or.jpeg" alt="T-Shirts">
+                    <p>T-Shirts</p>
+                </a>
+            </div>
+            <div class="category" data-name="Pants">
+                <a href="pants.html">
+                    <img src="images/pants1.jpeg" alt="Pants">
+                    <p>Pants</p>
+                </a>
+            </div>           
+            <div class="category" data-name="Jackets">
+                <a href="jackets.html">
+                    <img src="images/jacket og.jpeg" alt="Jackets">
+                    <p>Jackets</p>
+                </a>
+            </div>         
+            <div class="category" data-name="Sneakers">
+                <a href="sneakers.html">
+                    <img src="images/shoe og.jpeg" alt="Sneakers">
+                    <p>Sneakers</p>
+                </a>
+            </div>          
+            <div class="category" data-name="Accessories">
+                <a href="accessories.html">
+                    <img src="images/og hat.jpeg" alt="Accessories">
+                    <p>Accessories</p>
+                </a>
+            </div>
+            <div class="category" data-name="Sweater">
+                <a href="sweater.html">
+                    <img src="images/og hoodie.jpeg" alt="Sweater">
+                    <p>Sweater</p>
+                </a>
+            </div>
+            <div class="category" data-name="Skirts">
+                <a href="skirts.html">
+                    <img src="images/skirt og.jpeg" alt="Skirts">
+                    <p>Skirts</p>
+                </a>
+            </div>        
+        </section>
+    </div>
+    <script>
+        function searchItems() {
+            let input = document.getElementById("searchInput").value.toLowerCase();
+            let categories = document.querySelectorAll(".category-list .category");
+    
+            categories.forEach(category => {
+                let name = category.getAttribute("data-name").toLowerCase();
+                if (name.includes(input)) {
+                    category.style.display = "block";
+                } else {
+                    category.style.display = "none";
+                }
+            });
+        }
+        function getRecommendation() {
+            let gender = prompt("Enter gender (Male/Female):");
+            if (!gender) return;
+    
+            fetch(`http://127.0.0.1:5000/recommend?gender=${gender}`)
+               .then(response => response.json())
+               .then(data => {
+                    if (data.error) {
+                        alert("Error: " + data.error);
+                    } else {
+                       let recommendation = Object.entries(data.recommendation)
+                          .map(([category, item]) => `${category}: ${item}`)
+                          .join('\n');
+                       alert("AI Recommended Outfit:\n" + recommendation);
+                    }
+                })
+                .catch(error => console.error("Error fetching recommendation:", error));
+        }
+       
+        
+            // Handle user query submission       
+            aiSubmit.addEventListener("click", function () {        
+                const userQuery = aiInput.value.trim();            
+                if (userQuery === "") return;                                    
+                // Generate a random response from the list                                
+                const randomIndex = Math.floor(Math.random() * dummyResponses.length);                                
+                aiResponse.textContent = dummyResponses[randomIndex];                        
+                // Clear input field
+                aiInput.value = "";
+            });    
+        // Toggle Chat Visibility
+        function toggleChat() {
+            var chatPopup = document.getElementById("chat-popup");
+            chatPopup.style.display = chatPopup.style.display === "flex" ? "none" : "flex";
+        }
+        // Handle User Input
+        function handleChat(event) {
+            if (event.key === "Enter") {
+                sendMessage();
+
+            }
+        }
+        // Send Message
+        function sendMessage() {
+            var inputField = document.getElementById("chat-input");
+            var message = inputField.value.trim();
+            if (message === "") return;
+            var chatBody = document.getElementById("chat-body");
+            // Append User Message
+            var userMessage = document.createElement("div");
+            userMessage.textContent = "You: " + message;
+            chatBody.appendChild(userMessage);
+            // Placeholder for AI Response (Replace this later with actual AI logic)
+            var aiResponse = document.createElement("div");
+            aiResponse.textContent = "AI: Thinking...";
+            chatBody.appendChild(aiResponse);
+            // Scroll to Bottom
+            chatBody.scrollTop = chatBody.scrollHeight;
+            // Clear Input
+            inputField.value = "";
+            // Simulate AI Response
+            setTimeout(() => {
+                aiResponse.textContent = "AI: Sorry, I'm still learning! (Replace this with AI logic)";
+            }, 1000);
+        }
+
+    </script>
+    <!-- Floating AI Chat Button -->
+    <div id="ai-chat-button" onclick="toggleChat()">💬</div>
+    <!-- Chat Popup -->
+    <div id="chat-popup">
+        <div id="chat-header">
+            <span>AI Fashion Assistant</span>
+            <button onclick="toggleChat()">✖</button>
+        </div>
+        <div id="chat-body"></div>
+        <div id="chat-input-container">
+            <input type="text" id="chat-input" placeholder="Ask for outfit suggestions..." onkeydown="handleChat(event)">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Portal - AI Fashion Marketplace</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        header {
+            background: #222;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        .container {
+            margin-top: 80px;
+            padding: 20px;
+        }
+        .form-container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #f9f9f9;
+            text-align: left;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Seller Portal</h1>
+    </header>
+    
+    <div class="container">
+        <h2>List Your Product</h2>
+        <div class="form-container">
+            <form id="seller-form">
+                <label for="product-name">Product Name:</label>
+                <input type="text" id="product-name" required>
+
+                <label for="category">Category:</label>
+                <select id="category">
+                    <option value="T-Shirts">T-Shirts</option>
+                    <option value="Pants">Pants</option>
+                    <option value="Jackets">Jackets</option>
+                    <option value="Sneakers">Sneakers</option>
+                    <option value="Accessories">Accessories</option>
+                    <option value="Skirts">Skirts</option>
+                    
+                </select>
+
+                <label for="price">Price:</label>
+                <input type="number" id="price" required>
+
+                <label for="image">Upload Image:</label>
+                <input type="file" id="image" accept="image/*">
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("seller-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            alert("Product submitted! (Feature to be developed)");
+        });
+    </script>
+</body>
+</html>
