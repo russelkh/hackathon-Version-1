@@ -43,6 +43,4 @@ Improve the seller portal with more features.
 Submission
 This project was built for the CYBRELLA 2025 Hackathon and follows all submission requirements.
 
-## 🎥 Project Demo  
-Watch the full demonstration of the AI-Powered Smart Fashion Marketplace:  
-[📺 Click Here to View](PASTE_LINK_HERE)
+
